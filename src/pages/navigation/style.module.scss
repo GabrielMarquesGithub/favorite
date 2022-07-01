@@ -1,0 +1,110 @@
+.header {
+  background: var(--dark);
+  color: var(--white);
+  .navBar {
+    padding: 0 2rem;
+    height: 5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1080px;
+    margin: 0 auto;
+  }
+  .linksContainer {
+    align-items: center;
+    display: flex;
+    gap: 2rem;
+  }
+  a {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
+
+    z-index: 1;
+    position: relative;
+    padding: 0.5rem 1rem;
+
+    overflow: hidden;
+    &:not(.logo):after {
+      z-index: -1;
+      height: 20rem;
+
+      position: absolute;
+
+      content: "";
+      width: 100%;
+      right: 100%;
+      top: 0;
+      background: linear-gradient(90deg, var(--purple), var(--cyan));
+      transition: right 0.2s;
+    }
+    &:hover:not(.logo, .active):after {
+      right: 0;
+    }
+    &.active {
+      color: var(--cyan);
+    }
+  }
+
+  @media (max-width: 600px) {
+    .iconMenu {
+      position: relative;
+      display: flex;
+      gap: 0.5rem;
+      flex-direction: column;
+      div {
+        background: var(--white);
+        width: 2rem;
+        border-radius: 0.5rem;
+        height: 0.3rem;
+        transition: transform 0.3s, opacity 0.3s 0.3s;
+      }
+    }
+    .dropDownMenu {
+      &:not(.openMenu) {
+        .linksContainer {
+          display: none;
+        }
+      }
+      &.openMenu {
+        .iconMenu {
+          div:nth-child(2) {
+            transition: opacity 0s;
+            opacity: 0;
+          }
+          div:nth-child(1) {
+            position: absolute;
+            transform: rotate(45deg);
+          }
+          div:nth-child(3) {
+            position: absolute;
+            transform: rotate(-45deg);
+          }
+        }
+        .linksContainer {
+          width: 100vw;
+          height: 100vh;
+
+          flex-direction: column;
+          align-items: center;
+          gap: 0;
+
+          position: fixed;
+          top: 5rem;
+          left: 0;
+
+          background: var(--dark);
+
+          a {
+            padding: 2rem 3rem;
+            width: 100%;
+            &.active {
+              color: white;
+              background: linear-gradient(90deg, var(--purple), var(--cyan));
+            }
+          }
+        }
+      }
+    }
+  }
+}

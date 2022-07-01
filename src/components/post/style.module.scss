@@ -1,0 +1,72 @@
+.PostContainer {
+  max-width: 100%;
+
+  header {
+    height: 3rem;
+    padding: 0 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    h3 {
+      width: 80%;
+      overflow: hidden;
+    }
+
+    span {
+      cursor: pointer;
+      color: var(--white);
+      font-size: 2rem;
+
+      display: flex;
+      align-items: center;
+    }
+  }
+  img {
+    width: 100%;
+  }
+  footer {
+    padding: 1rem 1rem;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    color: black;
+    background-color: var(--white);
+
+    .footerMenu {
+      padding: 0.5rem;
+      border-radius: 4rem;
+
+      display: flex;
+      justify-content: space-between;
+
+      right: 1rem;
+      bottom: 3rem;
+
+      span {
+        cursor: pointer;
+        color: var(--cyan);
+        padding: 0.5rem;
+        font-size: 1rem;
+        border-radius: 100%;
+        border: 1px solid var(--cyan);
+
+        display: flex;
+
+        transition: all 0.2;
+
+        & + span {
+          color: var(--red);
+          border: 1px solid var(--red);
+          margin-left: 1rem;
+        }
+        &:hover {
+          filter: brightness(0.8);
+        }
+      }
+    }
+  }
+}

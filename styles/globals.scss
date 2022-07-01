@@ -1,0 +1,70 @@
+:root {
+  --white: #fff;
+  --grey-100: #e1e1e6;
+  --grey-300: #a8a8b3;
+  --grey-700: #323238;
+  --grey-800: #29292e;
+  --dark: #121111;
+  --cyan: #61dafb;
+  --purple: #6c3483;
+  --red: #e74c3c;
+}
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+html {
+  @media (max-width: 1080px) {
+    font-size: 93.75%;
+  }
+  @media (max-width: 720px) {
+    font-size: 87.5%;
+  }
+}
+
+body {
+  color: var(--white);
+  background: var(--dark);
+  -webkit-font-smoothing: antialiased;
+}
+body,
+input,
+textarea,
+select,
+button {
+  font: 500 1rem "Roboto", sans-serif;
+}
+button {
+  cursor: pointer;
+}
+a {
+  //o inherit faz com que ele assuma as cores do elemento pai
+  color: inherit;
+  text-decoration: none;
+}
+.Container {
+  max-width: 1080px;
+  margin: 2rem auto;
+
+  h2 {
+    background: linear-gradient(90deg, var(--purple), var(--cyan));
+    text-align: center;
+    padding: 1.5rem 0;
+  }
+}
+.PostsContainer {
+  padding: 0 2rem;
+  margin-top: 2rem;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: 1fr 1fr 1fr;
+  @media (max-width: 1000px) {
+    grid-template-columns: 1fr 1fr;
+  }
+  @media (max-width: 600px) {
+    padding: 0;
+    grid-template-columns: 100%;
+    gap: 5rem;
+  }
+}
