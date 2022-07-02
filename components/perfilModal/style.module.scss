@@ -1,0 +1,81 @@
+.background {
+  z-index: -1;
+  position: fixed;
+  left: 0;
+  top: 0;
+  opacity: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  transition: opacity 0.3s, z-index 0.5s;
+  &.open {
+    transition: z-index 0s;
+    z-index: 1;
+    opacity: 1;
+  }
+  .modalContainer {
+    margin: 2rem;
+    border-radius: 2rem;
+    padding: 2rem;
+    background: var(--dark);
+    border: 2px solid var(--cyan);
+    .modalLogin,
+    .modalPerfil {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      gap: 1rem;
+      h2 {
+        font-size: 1.3rem;
+        text-align: center;
+        strong {
+          color: var(--cyan);
+        }
+      }
+      button {
+        color: white;
+        background: linear-gradient(90deg, var(--purple), var(--cyan));
+        border: none;
+        height: 3rem;
+        width: 10rem;
+        border-radius: 1rem;
+
+        &:hover {
+          filter: brightness(0.8);
+        }
+        &.loading {
+          svg {
+            animation: loadingAnimation 0.5s infinite;
+          }
+        }
+      }
+    }
+    .modalPerfil {
+      h2 {
+        text-transform: capitalize;
+      }
+      div {
+        margin: 2rem;
+        font-size: 10rem;
+      }
+      button {
+        background: linear-gradient(90deg, var(--purple), var(--red));
+      }
+    }
+  }
+}
+@keyframes loadingAnimation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

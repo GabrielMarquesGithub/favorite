@@ -14,41 +14,61 @@
     align-items: center;
     display: flex;
     gap: 2rem;
-  }
-  a {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
+    a,
+    span:not(.buttonCreatePost) {
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
 
-    z-index: 1;
-    position: relative;
-    padding: 0.5rem 1rem;
+      z-index: 1;
+      position: relative;
+      padding: 0.5rem 1rem;
 
-    overflow: hidden;
-    &:not(.logo):after {
-      z-index: -1;
-      height: 20rem;
+      overflow: hidden;
+      &:not(.logo):after {
+        z-index: -1;
+        height: 20rem;
 
-      position: absolute;
+        position: absolute;
 
-      content: "";
-      width: 100%;
-      right: 100%;
-      top: 0;
+        content: "";
+        width: 100%;
+        right: 100%;
+        top: 0;
+        background: linear-gradient(90deg, var(--purple), var(--cyan));
+        transition: right 0.2s;
+      }
+      &:hover:not(.logo, .active):after {
+        right: 0;
+      }
+      &.active {
+        color: var(--cyan);
+      }
+    }
+    .buttonCreatePost {
+      cursor: pointer;
+      border-radius: 100%;
+      font-size: 2rem;
+      height: 3rem;
+      width: 3rem;
       background: linear-gradient(90deg, var(--purple), var(--cyan));
-      transition: right 0.2s;
-    }
-    &:hover:not(.logo, .active):after {
-      right: 0;
-    }
-    &.active {
-      color: var(--cyan);
+
+      text-align: center;
+      line-height: 3rem;
+
+      transition: all 0.2s;
+      &:hover {
+        filter: brightness(1.1);
+        transform: scale(1.1);
+      }
     }
   }
 
   @media (max-width: 600px) {
     .iconMenu {
       position: relative;
+      z-index: 3;
       display: flex;
       gap: 0.5rem;
       flex-direction: column;
@@ -61,6 +81,7 @@
       }
     }
     .dropDownMenu {
+      z-index: 2;
       &:not(.openMenu) {
         .linksContainer {
           display: none;
@@ -90,18 +111,26 @@
           gap: 0;
 
           position: fixed;
-          top: 5rem;
+          padding-top: 5rem;
+          top: 0;
           left: 0;
 
           background: var(--dark);
 
-          a {
+          a,
+          span:not(.buttonCreatePost) {
             padding: 2rem 3rem;
             width: 100%;
             &.active {
               color: white;
               background: linear-gradient(90deg, var(--purple), var(--cyan));
             }
+          }
+          .buttonCreatePost {
+            margin-top: 2rem;
+            height: 4rem;
+            line-height: 4rem;
+            width: 4rem;
           }
         }
       }

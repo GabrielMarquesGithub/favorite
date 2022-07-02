@@ -58,9 +58,10 @@ a {
   margin-top: 2rem;
   display: grid;
   gap: 2rem;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, minmax(200px, 450px));
+  justify-content: center;
   @media (max-width: 1000px) {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(2, minmax(200px, 450px));
   }
   @media (max-width: 600px) {
     padding: 0;
