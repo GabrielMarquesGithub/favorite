@@ -6,11 +6,20 @@ import { BsBookmarkStarFill } from "react-icons/bs";
 import { TbFaceId } from "react-icons/tb";
 import { LinkActive } from "../../components/linkActive";
 import { NextPage } from "next";
-import { PerfilModal } from "../../components/perfilModal";
+import dynamic from "next/dynamic";
 import { useUser } from "@auth0/nextjs-auth0";
+import { PerfilModalProps } from "../../components/postCreateModal";
 
 import styles from "./style.module.scss";
-import { PostCreateModal } from "../../components/postCreateModal";
+
+const PostCreateModal = dynamic<PerfilModalProps>(() => {
+  return import("../../components/postCreateModal").then(
+    (mod) => mod.PostCreateModal
+  );
+});
+const PerfilModal = dynamic<PerfilModalProps>(() => {
+  return import("../../components/perfilModal").then((mod) => mod.PerfilModal);
+});
 
 const Navigation: NextPage = () => {
   const { user } = useUser();

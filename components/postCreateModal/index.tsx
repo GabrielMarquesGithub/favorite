@@ -4,7 +4,7 @@ import { api } from "../../services/api";
 
 import style from "./style.module.scss";
 
-interface PerfilModalProps {
+export interface PerfilModalProps {
   open: boolean;
   functionClose: () => void;
 }
@@ -87,7 +87,7 @@ export const PostCreateModal = ({
             cols={20}
             rows={10}
             required
-            maxLength={200}
+            maxLength={500}
           ></textarea>
           <button type="submit">Enviar</button>
         </form>

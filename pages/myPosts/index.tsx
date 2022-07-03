@@ -13,42 +13,37 @@ interface IPosts {
     title: string;
     description: string;
     likes: number;
-    favorite: boolean;
   }[];
-  noUser: boolean;
 }
 
-const Favorite = ({ posts, noUser = false }: IPosts) => {
+const styleH2 = {
+  background: "linear-gradient(90deg, var(--purple), var(--red))",
+};
+
+const MyPosts = ({ posts }: IPosts) => {
   return (
     <>
       <Head>
-        <title>Favorite | Home</title>
+        <title>My Posts | Home</title>
       </Head>
       <main className="Container">
-        {noUser ? (
-          <h2>Faça login para favoritar algo!!</h2>
-        ) : (
-          <h2>Posts Favoritados</h2>
-        )}
+        <h2 style={styleH2}>Meus Posts</h2>
         <section className="PostsContainer">
-          {!noUser &&
-            posts.map((post) => (
-              <Post key={post.id["@ref"].id} {...post} page="favorite" />
-            ))}
+          {posts.map((post) => (
+            <Post key={post.id["@ref"].id} {...post} page="myPosts" />
+          ))}
         </section>
       </main>
     </>
   );
 };
 
-export default Favorite;
+export default MyPosts;
 
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   interface dataDB {
     ref: string;
-    data: {
-      favorites: [];
-    };
+    data: {};
   }
   interface IPostsDB {
     data: dataDB[];
@@ -57,8 +52,9 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
 
   if (!session) {
     return {
-      props: {
-        noUser: true,
+      redirect: {
+        permanent: false,
+        destination: "/",
       },
     };
   }
@@ -66,30 +62,20 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   const postsDB: IPostsDB = await fauna.query(
     //mapeando os posts
     q.Map(
-      q.Paginate(
-        q.Match(q.Index("post_by_favorite_email"), session.user.email),
-        {
-          //quantidade a ser carregada
-          size: 50,
-        }
-      ),
+      q.Paginate(q.Match(q.Index("posts_by_creator"), session.user.email), {
+        //quantidade a ser carregada
+        size: 50,
+      }),
       q.Lambda("X", q.Get(q.Var("X")))
     )
   );
 
+  console.log(postsDB.data);
+
   // para correção do tipo JSON
   const postsData: dataDB[] = await JSON.parse(JSON.stringify(postsDB.data));
 
-  const posts = [
-    ...postsData.map((post) => ({
-      id: post.ref,
-      //verificando a existência do favorite
-      favorite: post.data.favorites.some(
-        (email) => email === session.user.email
-      ),
-      ...post.data,
-    })),
-  ];
+  const posts = [...postsData.map((post) => ({ id: post.ref, ...post.data }))];
   return {
     props: {
       posts: posts,

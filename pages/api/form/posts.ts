@@ -11,7 +11,7 @@ interface reqBody {
 
 export default function posts(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "POST") {
-    const body: reqBody = { ...req.body, likes: 0 };
+    const body: reqBody = { ...req.body, likes: 0, favorites: [] };
 
     try {
       fauna.query(

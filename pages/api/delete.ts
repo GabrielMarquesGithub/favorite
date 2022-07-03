@@ -6,25 +6,19 @@ import { NextApiResponse } from "next";
 interface IncrementProps {
   ref: number;
   collection: string;
+  value: number;
 }
-interface dataDB {
-  ref: string;
-  data: {};
-}
-interface IPostsDB {
-  data: dataDB[];
-}
-export default async function likeFauna(
+export default async function deletePost(
   req: NextRequest,
   res: NextApiResponse
 ) {
   if (req.method === "POST") {
     const body: IncrementProps = req.body as any;
     try {
-      const postsDB: IPostsDB = await fauna.query(
-        q.Get(q.Ref(q.Collection(body.collection), body.ref))
+      await fauna.query(
+        q.Delete(q.Ref(q.Collection(body.collection), body.ref))
       );
-      res.json({ body: postsDB.data });
+      res.status(200).json({ success: "Delete" });
     } catch (err) {
       console.log("fauna error: ", err);
     }

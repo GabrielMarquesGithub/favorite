@@ -1,4 +1,5 @@
 import { useUser } from "@auth0/nextjs-auth0";
+import Link from "next/link";
 import { useRouter } from "next/router";
 import { AiOutlineLoading } from "react-icons/ai";
 import { BsPersonBoundingBox } from "react-icons/bs";
@@ -46,8 +47,21 @@ export const PerfilModal = ({
         {user && (
           <div className={style.modalPerfil}>
             <h2>Hey {user.name}</h2>
-            <div>
+            <div className={style.img}>
               <BsPersonBoundingBox />
+            </div>
+            <div className={style.asideButtons}>
+              <div>
+                !<span>Email {user.email}</span>
+              </div>
+              <div>
+                <Link href="/myPosts">
+                  <a onClick={functionClose}>
+                    My <br />
+                    Posts
+                  </a>
+                </Link>
+              </div>
             </div>
             {isLoading && (
               <button className={style.loading}>

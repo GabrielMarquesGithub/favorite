@@ -58,12 +58,84 @@
       }
     }
     .modalPerfil {
+      position: relative;
       h2 {
         text-transform: capitalize;
       }
-      div {
+      .img {
         margin: 2rem;
         font-size: 10rem;
+      }
+      .asideButtons {
+        position: absolute;
+        left: -4.3rem;
+        top: 3rem;
+        z-index: 2;
+
+        flex-direction: column;
+        align-items: flex-end;
+        display: flex;
+        div {
+          font-size: 2rem;
+
+          cursor: pointer;
+          background: var(--dark);
+          border-radius: 4rem;
+          border: 2px solid var(--cyan);
+
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          width: 4rem;
+          height: 4rem;
+
+          span {
+            width: 0;
+            max-width: 25rem;
+            overflow: hidden;
+            overflow: hidden;
+            color: transparent;
+
+            height: 1rem;
+            background: linear-gradient(90deg, var(--purple), var(--cyan));
+            padding: 0.5rem 2rem 0 0rem;
+            line-height: 1.5rem;
+
+            border-radius: 4rem;
+
+            left: 1rem;
+            z-index: -1;
+            position: absolute;
+            font-size: 1rem;
+
+            transition: padding-left 0.5s, height 0.5s;
+          }
+
+          &:hover {
+            font-size: 2.2rem;
+
+            span {
+              height: 4rem;
+              color: var(--white);
+              padding-left: 5rem;
+              width: auto;
+            }
+          }
+
+          &:last-child {
+            margin-top: 1rem;
+            font-size: 1rem;
+            text-align: center;
+
+            min-width: 5rem;
+            height: 5rem;
+
+            &:hover {
+              font-size: 1.2rem;
+            }
+          }
+        }
       }
       button {
         background: linear-gradient(90deg, var(--purple), var(--red));

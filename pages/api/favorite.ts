@@ -6,7 +6,7 @@ import { NextApiResponse } from "next";
 interface IncrementProps {
   ref: number;
   collection: string;
-  value: number;
+  email: string;
 }
 export default async function likeFauna(
   req: NextRequest,
@@ -14,20 +14,27 @@ export default async function likeFauna(
 ) {
   if (req.method === "POST") {
     const body: IncrementProps = req.body as any;
+
+    let emailsToPass: string[] = [];
     try {
+      const prevValue: Array<string> = await fauna.query(
+        q.Select(
+          ["data", "favorites"],
+          q.Get(q.Ref(q.Collection(body.collection), body.ref))
+        )
+      );
+      emailsToPass = [...prevValue, body.email];
+      if (prevValue.some((email) => email === body.email)) {
+        emailsToPass = prevValue.filter((email) => email !== body.email);
+      }
       await fauna.query(
         q.Update(q.Ref(q.Collection(body.collection), body.ref), {
           data: {
-            likes: q.Add(
-              q.Select(
-                ["data", "likes"],
-                q.Get(q.Ref(q.Collection(body.collection), body.ref))
-              ),
-              body.value
-            ),
+            favorites: [...emailsToPass],
           },
         })
       );
+
       res.status(200).json({ success: "Like" });
     } catch (err) {
       console.log("fauna error: ", err);
