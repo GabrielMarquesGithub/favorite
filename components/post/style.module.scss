@@ -90,16 +90,30 @@
       bottom: 3rem;
 
       span {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
         cursor: pointer;
         color: var(--cyan);
-        padding: 0.5rem;
-        font-size: 1rem;
+        padding: 0.25rem;
+        font-size: 1.5rem;
         border-radius: 100%;
         border: 1px solid var(--cyan);
 
         display: flex;
 
         transition: all 0.2;
+
+        &:first-child svg {
+          margin-bottom: -5px;
+        }
+
+        strong {
+          font-size: 0.8rem;
+          position: absolute;
+        }
 
         & + span {
           color: var(--red);
