@@ -80,15 +80,26 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // para correção do tipo JSON
   const postsData: dataDB[] = await JSON.parse(JSON.stringify(postsDB.data));
 
-  const posts = [
-    ...postsData.map((post) => ({
-      id: post.ref,
-      favorite: post.data.favorites.some(
-        (email) => email === session!.user.email
-      ),
-      ...post.data,
-    })),
-  ];
+  let posts = [];
+  if (session) {
+    posts = [
+      ...postsData.map((post) => ({
+        id: post.ref,
+        favorite: post.data.favorites.some(
+          (email) => email === session!.user.email
+        ),
+        ...post.data,
+      })),
+    ];
+  } else {
+    posts = [
+      ...postsData.map((post) => ({
+        id: post.ref,
+        ...post.data,
+      })),
+    ];
+  }
+
   return {
     props: {
       posts: posts,
