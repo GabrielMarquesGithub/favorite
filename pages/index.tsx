@@ -86,7 +86,7 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
       ...postsData.map((post) => ({
         id: post.ref,
         favorite: post.data.favorites.some(
-          (email) => email === session!.user.email
+          (email) => email === session?.user.email
         ),
         ...post.data,
       })),
