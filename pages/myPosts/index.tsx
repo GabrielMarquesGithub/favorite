@@ -13,6 +13,7 @@ interface IPosts {
     title: string;
     description: string;
     likes: number;
+    favorite: boolean;
   }[];
 }
 
@@ -43,7 +44,9 @@ export default MyPosts;
 export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   interface dataDB {
     ref: string;
-    data: {};
+    data: {
+      favorites: [];
+    };
   }
   interface IPostsDB {
     data: dataDB[];
@@ -75,7 +78,15 @@ export const getServerSideProps: GetServerSideProps = async ({ req, res }) => {
   // para correção do tipo JSON
   const postsData: dataDB[] = await JSON.parse(JSON.stringify(postsDB.data));
 
-  const posts = [...postsData.map((post) => ({ id: post.ref, ...post.data }))];
+  const posts = [
+    ...postsData.map((post) => ({
+      id: post.ref,
+      favorite: post.data.favorites.some(
+        (email) => email === session!.user.email
+      ),
+      ...post.data,
+    })),
+  ];
   return {
     props: {
       posts: posts,
