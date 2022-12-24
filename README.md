@@ -1,7 +1,7 @@
-# [Favorite](https://favorite-five.vercel.app/)
+# [Favorite]
 O Favorite é um App focado na interação dos usuários com publicações. O projeto foi construído utilizando React em seu framework Next com a integração do TypeScript 
 ### Deploy
-* O app recebeu deploy na Vercel https://favorite-five.vercel.app/
+* O Deploy do APP foi pausado indefinidamente
 
 
 ### Ferramentas 
